@@ -1,0 +1,32 @@
+npm create vite@latest react_adminlte -- --template react
+
+cd react_adminlte
+  npm install
+  npm run dev
+
+npm install admin-lte@^3.1.0
+
+npm install admin-lte@3.2.0
+npm install bootstrap@^4.6.0
+npm install jquery
+npm install @popperjs/core
+npm install --save-dev @types/jquery
+
+https://www.npmjs.com/package/font-awesome
+npm i font-awesome // mentok 4.7.0
+// import 'font-awesome/css/font-awesome.min.css';
+
+npm uninstall font-awesome
+
+https://www.npmjs.com/package/@fortawesome/fontawesome-free/v/5.1.0-9?activeTab=versions
+npm i @fortawesome/fontawesome-free@5.1.0-9
+npm i @fortawesome/fontawesome-free@5.15.4
+
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
+// butuh 5.15.4
+
+
+npm install react-router-dom
+
+npm install react-helmet
