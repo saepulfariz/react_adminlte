@@ -114,9 +114,9 @@ const Products = () => {
               ))}
             </div>
             <div className="row mb-2 justify-content-center ">
-              <div className="col-md-6 text-center">
+              <div className="col-md-4 text-center mx-auto d-flex justify-content-center">
                 <Pagination
-                  className="mx-auto"
+                  className=""
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
@@ -136,6 +136,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     pageNumbers.push(i);
   }
 
+  const generatePageNumbers = () => {
+    const pageNumbers = [];
+    const startPage = Math.max(1, currentPage - 1);
+    const endPage = Math.min(totalPages, currentPage + 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <nav>
       <ul className="pagination">
@@ -147,7 +159,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             Previous
           </button>
         </li>
-        {pageNumbers.map((number) => (
+        {generatePageNumbers().map((number) => (
           <li
             key={number}
             className={`page-item ${currentPage === number ? "active" : ""}`}
