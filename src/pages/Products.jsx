@@ -141,8 +141,22 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const startPage = Math.max(1, currentPage - 1);
     const endPage = Math.min(totalPages, currentPage + 1);
 
+    if (startPage > 1) {
+      pageNumbers.push(1);
+      if (startPage > 2) {
+        pageNumbers.push("...");
+      }
+    }
+
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push("...");
+      }
+      pageNumbers.push(totalPages);
     }
 
     return pageNumbers;
@@ -151,6 +165,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <nav>
       <ul className="pagination">
+        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+          <button className="page-link" onClick={() => onPageChange(1)}>
+            First
+          </button>
+        </li>
         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
           <button
             className="page-link"
@@ -179,6 +198,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => onPageChange(currentPage + 1)}
           >
             Next
+          </button>
+        </li>
+        <li
+          className={`page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`}
+        >
+          <button
+            className="page-link"
+            onClick={() => onPageChange(totalPages)}
+          >
+            Last
           </button>
         </li>
       </ul>
