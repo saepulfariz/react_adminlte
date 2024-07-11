@@ -1,7 +1,7 @@
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
-import Content from './components/Content';
+import Backend from './components/Backend';
 
 import {
   createBrowserRouter,
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: <Backend />,
     children: [
       {
         path: 'users',
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         index: true,
-        element: <Content />, 
+        element: <Dashboard />, 
       },
     ],
   },
