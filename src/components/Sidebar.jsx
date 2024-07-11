@@ -5,6 +5,8 @@ import userLogo from "../assets/img/user.png";
 const Sidebar = () => {
   const location = useLocation();
 
+  const isActive = (path) => location.pathname.startsWith(path);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <a href="#" className="brand-link">
@@ -51,7 +53,7 @@ const Sidebar = () => {
               <Link
                 to="/dashboard/users"
                 className={`nav-link ${
-                  location.pathname === "/dashboard/users" ? "active" : ""
+                  isActive("/dashboard/users") ? "active" : ""
                 }`}
               >
                 <i className="fas fa-users nav-icon"></i>
@@ -62,7 +64,7 @@ const Sidebar = () => {
               <Link
                 to="/dashboard/products"
                 className={`nav-link ${
-                  location.pathname === "/dashboard/products" ? "active" : ""
+                  isActive("/dashboard/products") ? "active" : ""
                 }`}
               >
                 <i className="fas fa-list nav-icon"></i>
