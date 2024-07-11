@@ -29,6 +29,12 @@ const Sidebar = () => {
                 <p>Dashboard</p>
               </Link>
             </li>
+            <li className="nav-item">
+                <Link to="/dashboard/users" className={`nav-link ${location.pathname === '/dashboard/users' ? 'active' : ''}`}>
+                  <i className="fas fa-users nav-icon"></i>
+                  <p> Data Users</p>
+                </Link>
+              </li>
             <li className="nav-item  has-treeview">
                 <a href="#" className="nav-link">
                     <i className="nav-icon fas fa-user"></i>

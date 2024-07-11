@@ -1,5 +1,7 @@
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Users from './pages/Users';
+import Content from './components/Content';
 
 import {
   createBrowserRouter,
@@ -15,8 +17,18 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: <Dashboard />,
+    children: [
+      {
+        path: 'users',
+        element: <Users />,
+      },
+      {
+        index: true,
+        element: <Content />, 
+      },
+    ],
   },
 ]);
 

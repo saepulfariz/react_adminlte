@@ -1,6 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import Content from '../components/Content';
+// import Content from '../components/Content';
 import { Helmet } from 'react-helmet';
 
 
@@ -36,7 +36,6 @@ const Dashboard = () => {
                 <Navbar />
                 <Sidebar />
                 <Outlet />
-                <Content />
             </div>
         </div>
     );
