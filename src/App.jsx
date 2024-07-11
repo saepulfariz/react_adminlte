@@ -1,15 +1,12 @@
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Users from './pages/Users';
-import Backend from './components/Backend';
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Backend from "./components/Backend";
+import Users from "./pages/Users";
+import Products from "./pages/Products";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // const BASE_APP =  import.meta.env.VITE_BASE_APP;
-
 
 const router = createBrowserRouter([
   {
@@ -17,26 +14,27 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: <Backend />,
     children: [
       {
-        path: 'users',
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "users",
         element: <Users />,
       },
       {
-        index: true,
-        element: <Dashboard />, 
+        path: "products",
+        element: <Products />,
       },
     ],
   },
 ]);
 
-
 function App() {
-
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
-
 
 export default App;
