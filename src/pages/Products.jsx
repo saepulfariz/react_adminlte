@@ -7,39 +7,52 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
 
-  const fetchProducts = async (searchQuery = "") => {
+  const fetchProducts = async (searchQuery = "", page = 1) => {
     setLoading(true);
+    const limit = 10;
+    const skip = (page - 1) * limit;
+    const url = searchQuery
+      ? `https://dummyjson.com/products/search?q=${searchQuery}&limit=${limit}&skip=${skip}`
+      : `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
+
     try {
       // const response = await axios.get("https://dummyjson.com/products");
       // setProducts(response.data.products);
       // setLoading(false);
 
-      const response = await fetch(
-        `https://dummyjson.com/products/search?q=${searchQuery}`
-      );
+      const response = await fetch(url);
       const data = await response.json();
       setProducts(data.products);
+      setTotalProducts(data.total || 0);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts(query, currentPage);
+  }, [query, currentPage]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    fetchProducts(query, 1);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(totalProducts / 10);
 
   if (loading) {
     // return <div>Loading...</div>;
     return "";
   }
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    fetchProducts(query);
-  };
 
   return (
     <div>
@@ -100,10 +113,64 @@ const Products = () => {
                 </div>
               ))}
             </div>
+            <div className="row mb-2 justify-content-center ">
+              <div className="col-md-6 text-center">
+                <Pagination
+                  className="mx-auto"
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <nav>
+      <ul className="pagination">
+        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+          <button
+            className="page-link"
+            onClick={() => onPageChange(currentPage - 1)}
+          >
+            Previous
+          </button>
+        </li>
+        {pageNumbers.map((number) => (
+          <li
+            key={number}
+            className={`page-item ${currentPage === number ? "active" : ""}`}
+          >
+            <button className="page-link" onClick={() => onPageChange(number)}>
+              {number}
+            </button>
+          </li>
+        ))}
+        <li
+          className={`page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`}
+        >
+          <button
+            className="page-link"
+            onClick={() => onPageChange(currentPage + 1)}
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
