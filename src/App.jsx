@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Backend from "./components/Backend";
 import Users from "./pages/Users";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
+      },
+      {
+        path: "products/:productId",
+        element: <ProductDetail />,
       },
     ],
   },

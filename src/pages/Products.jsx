@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import axios from "axios";
 
 const Products = () => {
@@ -63,6 +64,12 @@ const Products = () => {
                       <p className="card-text">
                         <strong>${product.price}</strong>
                       </p>
+                      <Link
+                        to={`/dashboard/products/${product.id}`}
+                        className="btn btn-primary"
+                      >
+                        View Details
+                      </Link>
                     </div>
                   </div>
                 </div>
