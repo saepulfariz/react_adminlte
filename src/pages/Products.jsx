@@ -6,24 +6,28 @@ import { Link } from "react-router-dom";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+
+  const fetchProducts = async (searchQuery = "") => {
+    setLoading(true);
+    try {
+      // const response = await axios.get("https://dummyjson.com/products");
+      // setProducts(response.data.products);
+      // setLoading(false);
+
+      const response = await fetch(
+        `https://dummyjson.com/products/search?q=${searchQuery}`
+      );
+      const data = await response.json();
+      setProducts(data.products);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        // const response = await axios.get("https://dummyjson.com/products");
-        // setProducts(response.data.products);
-        // setLoading(false);
-
-        const response = await fetch("https://dummyjson.com/products");
-        const data = await response.json();
-        setProducts(data.products);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      }
-    };
-
     fetchProducts();
   }, []);
 
@@ -31,6 +35,11 @@ const Products = () => {
     // return <div>Loading...</div>;
     return "";
   }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchProducts(query);
+  };
 
   return (
     <div>
@@ -49,6 +58,22 @@ const Products = () => {
         </div>
         <div className="content">
           <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-3">
+                <form onSubmit={handleSearch} className="mb-4">
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search products..."
+                    className="form-control"
+                  />
+                  <button type="submit" className="btn btn-primary mt-2">
+                    Search
+                  </button>
+                </form>
+              </div>
+            </div>
             <div className="row">
               {products.map((product) => (
                 <div key={product.id} className="col-md-4">
