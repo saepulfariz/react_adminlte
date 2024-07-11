@@ -2,7 +2,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-
 import 'bootstrap/dist/css/bootstrap.css'
 import 'admin-lte/dist/css/adminlte.css';
 
